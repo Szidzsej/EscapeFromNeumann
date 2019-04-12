@@ -1,14 +1,40 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Question {
   private int id;
   private String question;
-  private String[] answers;
-  private int correctAnswerID;
+  private ArrayList<String> answers;
+  private int correctAnswerID; // a helyes válasz indexe, azaz 0,1,2
 
-  public Question(int id, String question, String[] answers, int correct)
+  public Question(int id, String question, HashMap<String, Boolean> answersHashMap)
   {
     this.id = id;
-    this.answers = answers;
     this.question = question;
-    this.correctAnswerID = correct;
+    this.answers = new ArrayList<String>();
+    this.FillAnswers(answersHashMap);
   }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    private void FillAnswers(HashMap<String, Boolean> answersHashMap){
+      int i = 0;
+        for (String key: answersHashMap.keySet()) {
+            this.answers.add(key);
+            if (answersHashMap.get(key)){
+                this.correctAnswerID=i;
+            }
+            i++;
+        }
+    }
+
+    public ArrayList<String> getAnswers() {
+        return answers;
+    }
+
+    public int getCorrectAnswerID() {
+        return correctAnswerID;
+    }
 }

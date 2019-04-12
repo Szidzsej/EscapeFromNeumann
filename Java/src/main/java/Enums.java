@@ -1,8 +1,9 @@
 public class Enums {
-  enum ItemKind
+  public enum ItemKind
   {
     SELFCONFIDENCE,
     QUESTIONSKIPPER,
-    GOODANSWER
+    GOODANSWER,
+    WRONGANSWER
   }
 }

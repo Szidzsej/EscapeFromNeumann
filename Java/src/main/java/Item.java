@@ -13,4 +13,16 @@ public class Item {
     this.value = value;
     this.isItUsed = false;
   }
+
+  public int getValue() {
+    return value;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ItemType getType() {
+    return type;
+  }
 }

@@ -7,12 +7,16 @@ public class Classroom {
   private ArrayList<Treasure> treasures;
   private ArrayList<Item> potions;
 
-  public Classroom(int id,String name, Teacher teacher)
+  public Classroom(int id,String name, Teacher teacher, ArrayList<Treasure> treasures, ArrayList<Item> potions)
   {
     this.id = id;
     this.name = name;
     this.teacher = teacher;
-    this.treasures = new ArrayList<Treasure>();
-    this.potions = new ArrayList<Item>();
+    this.treasures = treasures;
+    this.potions = potions;
+  }
+
+  public String getName() {
+    return name;
   }
 }

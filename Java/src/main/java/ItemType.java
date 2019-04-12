@@ -9,4 +9,12 @@ public class ItemType extends Enums{
     this.name = name;
     this.type = itemKind;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public ItemKind getType() {
+    return type;
+  }
 }
