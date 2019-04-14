@@ -1,5 +1,7 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 
 public class Game {
 
@@ -15,45 +17,49 @@ public class Game {
     }
 
 
-//Lekérdezések tesztelése - törölhető
+////Lekérdezések tesztelése - törölhető
+//
+//    Teacher teacher = connection.getTeacherByClassroomId(6);
+//    System.out.println(teacher.getName());
+//
+//    Subject subject = teacher.getSubject();
+//
+//    System.out.println(subject.getName());
+//    for (Question question: subject.getQuestions()) {
+//      System.out.println(question.getQuestion());
+//      for (String answer: question.getAnswers()) {
+//        System.out.println("\t"+answer);
+//      }
+//      System.out.println("Helyes válasz:"+(question.getCorrectAnswerID()+1)+"\n");
+//    }
+//
+//    ArrayList<Treasure> treasures = connection.getTreasuresByClassroomId(6);
+//    for (Treasure treasure:treasures) {
+//      System.out.println(treasure.getName()+" "+treasure.getValue());
+//    }
+//    System.out.println();
+//
+//    ArrayList<Item> items = connection.getItemsByClassroomId(6);
+//
+//    for (Item item: items) {
+//      System.out.println(item.getName()+" "+item.getValue()+" "+item.getType().getType());
+//    }
+//
+//    Classroom classroom = connection.getClassRoomById(6);
+//    System.out.println(classroom.getName());
+//
+////lekérdezés tesztelés vége.
 
-    Teacher teacher = connection.getTeacherByClassroomId(6);
-    System.out.println(teacher.getName());
+String rowname="classroom";
+int countanswerRows=connection.countOfRows(rowname);
 
-    Subject subject = teacher.getSubject();
+ArrayList<Classroom> classroomArrayList=new ArrayList<Classroom>();
 
-    System.out.println(subject.getName());
-    for (Question question: subject.getQuestions()) {
-      System.out.println(question.getQuestion());
-      for (String answer: question.getAnswers()) {
-        System.out.println("\t"+answer);
-      }
-      System.out.println("Helyes válasz:"+(question.getCorrectAnswerID()+1)+"\n");
-    }
+System.out.println(countanswerRows);
 
-    ArrayList<Treasure> treasures = connection.getTreasuresByClassroomId(6);
-    for (Treasure treasure:treasures) {
-      System.out.println(treasure.getName()+" "+treasure.getValue());
-    }
-    System.out.println();
-
-    ArrayList<Item> items = connection.getItemsByClassroomId(6);
-
-    for (Item item: items) {
-      System.out.println(item.getName()+" "+item.getValue()+" "+item.getType().getType());
-    }
-
-    Classroom classroom = connection.getClassRoomById(6);
-    System.out.println(classroom.getName());
-
-//lekérdezés tesztelés vége.
-
-
-
-
-
-
-
+for(int i=1;i<countanswerRows+1;i++){
+  classroomArrayList.add(connection.getClassRoomById(i));
+}
 
   }
 }

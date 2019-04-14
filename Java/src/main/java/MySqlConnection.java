@@ -63,8 +63,18 @@ public class MySqlConnection {
         stmt.setInt(1, classroomId);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        Subject tempSubject = getSubjectByTeacherId(rs.getInt("id"));
-        return new Teacher(rs.getInt("id"), rs.getString("name"), tempSubject);
+        Subject tempSubject = null;
+        try {
+            tempSubject = getSubjectByTeacherId(rs.getInt("id"));
+        } catch (SQLException e) {
+
+        }
+        try {
+            return new Teacher(rs.getInt("id"), rs.getString("name"), tempSubject);
+        } catch (SQLException e) {
+
+        }
+        return null;
     }
 
     public ArrayList<Treasure> getTreasuresByClassroomId(int classroomId) throws SQLException {
@@ -135,14 +145,29 @@ public class MySqlConnection {
     }
 
     public Classroom getClassRoomById(int classroomId) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM classroom");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM classroom WHERE id=?");
+        stmt.setInt(1,classroomId);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        int classid = rs.getInt("id");
-        Teacher tempTeacher = getTeacherByClassroomId(classid);
-        ArrayList<Treasure> tempTreasures = getTreasuresByClassroomId(classid);
-        ArrayList<Item> tempItems = getItemsByClassroomId(classid);
-        return new Classroom(classid, rs.getString("roomname"), tempTeacher, tempTreasures, tempItems);
+        Teacher tempTeacher = getTeacherByClassroomId(classroomId);
+        ArrayList<Treasure> tempTreasures = getTreasuresByClassroomId(classroomId);
+        ArrayList<Item> tempItems = getItemsByClassroomId(classroomId);
+        return new Classroom(classroomId, rs.getString("roomname"), tempTeacher, tempTreasures, tempItems);
+    }
+
+    public int countOfRows(String tablename){
+        int count=0;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = connection.prepareStatement("SELECT COUNT(1) AS numberofcolumns FROM"+" "+tablename);
+            rs = stmt.executeQuery();
+            rs.next();
+            count=rs.getInt("numberofcolumns");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
 }
