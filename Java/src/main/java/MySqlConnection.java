@@ -14,7 +14,7 @@ public class MySqlConnection {
             return false;
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/efn", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/escapefromneu", "root", "");
             if (connection != null) {
                 return true;
             } else {
@@ -152,9 +152,22 @@ public class MySqlConnection {
         Teacher tempTeacher = getTeacherByClassroomId(classroomId);
         ArrayList<Treasure> tempTreasures = getTreasuresByClassroomId(classroomId);
         ArrayList<Item> tempItems = getItemsByClassroomId(classroomId);
-        return new Classroom(classroomId, rs.getString("roomname"), tempTeacher, tempTreasures, tempItems);
+        HashMap<String,Integer> nextrooms = new HashMap<String, Integer>();
+        String nextsFull = rs.getString("nextrooms");
+        String[] nexts = nextsFull.split(";");
+        for (String s: nexts) {
+            nextrooms.put(getClassroomNameById(Integer.parseInt(s)),Integer.parseInt(s));
+        }
+        return new Classroom(classroomId, rs.getString("roomname"), tempTeacher, tempTreasures, tempItems,nextrooms);
     }
-
+    public String getClassroomNameById(int classroomId) throws SQLException
+    {
+        PreparedStatement stmt = connection.prepareStatement("SELECT roomname FROM classroom WHERE id=?");
+        stmt.setInt(1,classroomId);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getString("roomname");
+    }
     public int countOfRows(String tablename){
         int count=0;
         PreparedStatement stmt = null;

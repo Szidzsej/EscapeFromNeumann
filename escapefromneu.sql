@@ -5,7 +5,7 @@ nextrooms varchar(100)
 );
 Insert into Classroom (roomname,nextrooms) VALUES
 ("Udvar","2;"),
-("Aula","1;3;4"),
+("Aula","1;3;4;"),
 ("Büfé","2;"),
 ("Földszinti lépcsö","2;5;"),
 ("Elsö emeleti folyosó","4;6;7;8;9;"),
@@ -66,12 +66,6 @@ Insert into ItemKind (name) Values
     ("Kihagyo"),
     ("KaveBuff"),
     ("KaveDebuff");
-Create table Player(
-id int PRIMARY KEY AUTO_INCREMENT,
-name varchar(250) NOT NULL,
-knowledge int NOT NULL,
-hp int NOT NULL
-);
 
 Create table Teacher(
 id int PRIMARY KEY AUTO_INCREMENT,
@@ -159,9 +153,9 @@ Insert into Answer (answer,questionID,isItCorrect) Values
 ("Egy jó film!",2,0),
 ("2 dimenziós tömb",2,1),
 ("2 elemü tömb",2,0),
-("Private Proctect Public",3,0),
+("Private Protect Public",3,0),
 ("Perui palota pincsi",3,0),
-("Private Proctected Public",3,1),
+("Private Protected Public",3,1),
 ("Felveszi az egyenlöség jobb oldalán található objektum/változó típusát!",4,1),
 ("Kertet ásni!",4,0),
 ("Metódusunkhoz több variációt készíteni!",4,0),

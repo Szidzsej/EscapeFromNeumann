@@ -18,4 +18,6 @@ public class Teacher {
     public Subject getSubject() {
         return subject;
     }
+
+    public boolean getDefeated() { return this.isItDefeated; }
 }

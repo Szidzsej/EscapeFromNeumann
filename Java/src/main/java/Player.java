@@ -17,4 +17,33 @@ public class Player {
     treasures = new ArrayList<Treasure>();
     items = new ArrayList<Item>();
   }
+  public void goodAnswer()
+  {
+    this.knowledge++;
+  }
+  public void wrongAnswer()
+  {
+    this.hp -=10;
+  }
+  public int getHP()
+  {
+    return this.hp;
+  }
+
+  public int getKnowledge() {
+    return knowledge;
+  }
+  public String getName()
+  {
+    return this.name;
+  }
+  public void setOneTresureItem(Treasure t)
+  {
+      this.treasures.add(t);
+      this.knowledge += t.getValue();
+  }
+  public void setOneItem(Item i)
+  {
+      this.items.add(i);
+  }
 }
