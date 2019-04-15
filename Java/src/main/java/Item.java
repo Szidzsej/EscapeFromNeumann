@@ -25,4 +25,6 @@ public class Item {
   public ItemType getType() {
     return type;
   }
+  public void setUsed() { this.isItUsed = true;}
+  public boolean getUsed() { return this.isItUsed;}
 }

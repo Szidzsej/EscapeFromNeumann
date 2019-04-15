@@ -25,6 +25,10 @@ public class Player {
   {
     this.hp -=10;
   }
+  public void veryWrongAnswer()
+  {
+    this.hp -=20;
+  }
   public int getHP()
   {
     return this.hp;
@@ -45,5 +49,20 @@ public class Player {
   public void setOneItem(Item i)
   {
       this.items.add(i);
+  }
+  public ArrayList<Item> getItems() { return  this.items;}
+  public int useItem(Item item, Question q)
+  {
+    switch (item.getType().getType())
+    {
+      case GOODANSWER: item.setUsed(); return q.getCorrectAnswerID();
+      case WRONGANSWER: item.setUsed(); if (q.getCorrectAnswerID() == 0) return 1; else return 0;
+      case QUESTIONSKIPPER: item.setUsed(); this.knowledge--; return q.getCorrectAnswerID();
+    }
+    return 0;
+  }
+  public void usePotion(Item item){
+    this.hp+=20;
+    item.setUsed();
   }
 }

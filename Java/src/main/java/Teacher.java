@@ -20,4 +20,5 @@ public class Teacher {
     }
 
     public boolean getDefeated() { return this.isItDefeated; }
+    public void setDefeated() {  this.isItDefeated = true; }
 }

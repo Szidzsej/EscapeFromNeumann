@@ -74,7 +74,12 @@ public class Game {
     scanner = new Scanner(System.in);
     System.out.println("Add meg a sorszámát a helyiségnek, ahová átszeretnél menni: ");
 
-    Integer name = Integer.parseInt(scanner.nextLine());
+    Integer name = Input(scanner.nextLine(),ActualRoom.getNextrooms().size());
+    if (name == 0)
+    {
+      cls();
+      return NextRooms(ActualRoom);
+    }
 
     return NextRooms(temps.get(name));
   }
@@ -115,13 +120,26 @@ public class Game {
           System.out.println(aCount + ". válasz : " + answer);
           aCount++;
         }
+        System.out.println(aCount+ ". Segítség/Potion használata!");
          scanner = new Scanner(System.in);
         System.out.println("Add meg a sorszámát a helyes válasznak: ");
-        Integer good = Integer.parseInt(scanner.nextLine());
+        Integer good = Input(scanner.nextLine(), 4);
+        if  (good == 4) {
+          good = getPlayersItems(q);
+        }
+        if (good == 10 || good == 404)
+        {
+          System.out.println("Add meg a sorszámát a helyes válasznak: ");
+          good = Integer.parseInt(scanner.nextLine());
+        }
         if (q.getCorrectAnswerID() == good - 1) {
           System.out.println("Helyes válasz! +1 tudás pont!");
           player.goodAnswer();
-        } else {
+        } else if(good == 0){
+          System.out.println("Nagyon rossz válasz! Teljesen rossz, még a sorszámot se találtad el! -20 önbizalom pont!");
+          player.veryWrongAnswer();
+        }else
+        {
           System.out.println("Rossz válasz! -10 önbizalom pont!");
           player.wrongAnswer();
         }
@@ -133,6 +151,8 @@ public class Game {
         System.exit(0);
       }
     }
+    cls();
+    teacher.setDefeated();
   }
   public static void FinalBoss(Classroom ActualRoom)
   {
@@ -163,7 +183,12 @@ public class Game {
       count++;
     }
     scanner = new Scanner(System.in);
-    int chosenItemNumber = Integer.parseInt(scanner.nextLine());
+    int chosenItemNumber = Input(scanner.nextLine(),(treasures.size()+potions.size()));
+    if (chosenItemNumber == 0)
+    {
+      System.out.println("Mi kértük, hogy a jutalmak közül válasszon! Rosszul döntöttél, elvesztetted a jutalmakat!");
+      return;
+    }
     nameOfItem=itemInfos.get(chosenItemNumber);
     String finalNameOfItem = nameOfItem;
     Treasure treasure = treasures.stream()
@@ -183,5 +208,71 @@ public class Game {
 
     treasures.remove(treasure);
     potions.remove(item);
+  }
+  public static int getPlayersItems(Question question){
+    int count=1;
+    int temp;
+    HashMap<Integer,String> itemInfos= new HashMap<Integer, String>();
+    if(player.getItems().size() >0) {
+      System.out.println("Kérem válasszon az alábbi segítségek közül egyet a mellette álló szám beírásával: ");
+      for (Item it : player.getItems()) {
+        if (!it.getUsed()) {
+          System.out.println(count + ".: " + it.getName());
+          itemInfos.put(count, it.getName());
+          count++;
+        }
+      }
+      scanner = new Scanner(System.in);
+      int chosenItemNumber = Input(scanner.nextLine(), count - 1);
+      String finalNameOfItem = itemInfos.get(chosenItemNumber);
+      Item item = player.getItems().stream()
+              .filter(potion -> finalNameOfItem.equals(potion.getName()))
+              .findAny()
+              .orElse(null);
+      if (item.getType().getType() == Enums.ItemKind.SELFCONFIDENCE) {
+        player.usePotion(item);
+        temp = 10;
+        return temp;
+      } else {
+        temp = player.useItem(item, question);
+        return temp;
+      }
+    }
+    else
+    {
+      System.out.println("Nincs segitséged, vagy potionöd jelenleg!");
+      return 404;
+    }
+  }
+  public static int Input(String inputLine, int count)
+  {
+    int temp = 0;
+    if (tryParseInt(inputLine)) {
+      if (count >= Integer.parseInt(inputLine) && Integer.parseInt(inputLine) >= 1)
+        temp = Integer.parseInt(inputLine);
+    }else {
+      temp = 0;
+    }
+    return temp;
+  }
+  public static boolean tryParseInt(String value) {
+    try {
+      Integer.parseInt(value);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+  public static void cls()
+  {
+    try
+    {
+      Runtime.getRuntime().exec("cmd /c cls");
+    }
+    catch(final Exception e)
+    {
+      System.out.print(e);
+    }
+
   }
 }
