@@ -1,5 +1,7 @@
 import java.util.ArrayList;
-
+/**
+itt definialjuk a jatekost
+ */
 public class Player {
   private int id;
   private String name;
@@ -33,7 +35,6 @@ public class Player {
   {
     return this.hp;
   }
-
   public int getKnowledge() {
     return knowledge;
   }
@@ -51,6 +52,13 @@ public class Player {
       this.items.add(i);
   }
   public ArrayList<Item> getItems() { return  this.items;}
+
+  /**
+   * itt definialjuk az itemek hasznalatat tipus alapjan
+   * @param item a targy, melyet elfogyaszthat a jatekos
+   * @param q kerdes, amire elhasznalod a segitseget
+   * @return tipusonkenti return van
+   */
   public int useItem(Item item, Question q)
   {
     switch (item.getType().getType())

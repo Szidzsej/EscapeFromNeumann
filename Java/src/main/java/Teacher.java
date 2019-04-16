@@ -1,3 +1,6 @@
+/**
+ * a tanarokat definialjuk itt
+ */
 public class Teacher {
     private int id;
     private String name;

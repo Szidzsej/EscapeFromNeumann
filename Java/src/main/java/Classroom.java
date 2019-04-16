@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *  itt definialjuk az osztalyt
+ */
 public class Classroom {
   private int id;
   private String name;

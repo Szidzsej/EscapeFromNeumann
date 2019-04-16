@@ -1,3 +1,6 @@
+/**
+ * definialja az item tipusat
+ */
 public class ItemType extends Enums{
   private int id;
   private String name;

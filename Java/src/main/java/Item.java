@@ -1,3 +1,7 @@
+/**
+ *ez az osztaly definialja azokat az itemeket, melyeket a jatekos elfogyaszthat
+ * eltaroljuk az adatbazisban talalhato adatokat, illetve azt, hogy hasznalta-e mar a jatekos vagy sem
+ */
 public class Item {
   private int id;
   private String name;
@@ -12,10 +16,6 @@ public class Item {
     this.type = type;
     this.value = value;
     this.isItUsed = false;
-  }
-
-  public int getValue() {
-    return value;
   }
 
   public String getName() {

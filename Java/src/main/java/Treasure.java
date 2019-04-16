@@ -1,3 +1,6 @@
+/**
+ * a kincseket itt definialjuk
+ */
 public class Treasure {
   private int id;
   private String name;

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * a tantargyak adatait itt definialjuk
+ */
 public class Subject {
   private int id;
   private String name;
